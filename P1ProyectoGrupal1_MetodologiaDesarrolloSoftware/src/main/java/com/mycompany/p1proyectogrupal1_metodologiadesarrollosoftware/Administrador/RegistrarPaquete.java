@@ -47,6 +47,8 @@ public class RegistrarPaquete extends MongoConnection{
                 //.append("codigo del paquete", code);
         // Insertar documento en la colección
         getCollection().insertOne(document);
+        Connect("Historial");
+        getCollection().insertOne(document);
     }
     public static String generateCode() {
         Random random = new Random();

@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
  */
 public class Panel_Administrador extends javax.swing.JFrame {
     CalculatePrice cp=new CalculatePrice();
+    RegistrarPaquete rp=new RegistrarPaquete();
     /**
      * Creates new form Panel_Administrador
      */
@@ -105,7 +106,7 @@ public class Panel_Administrador extends javax.swing.JFrame {
         DimentionsComboBox = new javax.swing.JComboBox<>();
         NameT = new javax.swing.JTextField();
         ID_T = new javax.swing.JTextField();
-        Placa_T = new javax.swing.JTextField();
+        PlacaT = new javax.swing.JTextField();
         Tarifa = new javax.swing.JTextField();
         Register = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -229,12 +230,12 @@ public class Panel_Administrador extends javax.swing.JFrame {
         });
         jPanel2.add(ID_T, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 700, 170, 30));
 
-        Placa_T.addActionListener(new java.awt.event.ActionListener() {
+        PlacaT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Placa_TActionPerformed(evt);
+                PlacaTActionPerformed(evt);
             }
         });
-        jPanel2.add(Placa_T, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 692, 190, 30));
+        jPanel2.add(PlacaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 692, 190, 30));
 
         Tarifa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +249,7 @@ public class Panel_Administrador extends javax.swing.JFrame {
                 RegisterActionPerformed(evt);
             }
         });
-        jPanel2.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 750, 200, 30));
+        jPanel2.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 610, 200, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Admin-Envio.png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 800));
@@ -294,9 +295,9 @@ public class Panel_Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ID_TActionPerformed
 
-    private void Placa_TActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Placa_TActionPerformed
+    private void PlacaTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlacaTActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Placa_TActionPerformed
+    }//GEN-LAST:event_PlacaTActionPerformed
 
     private void BotonPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPanelActionPerformed
         jPanel1.setVisible(true);
@@ -396,17 +397,36 @@ cp.valor(DimentionsComboBox, Weight, PlaceCombo, Tarifa);// TODO add your handli
     }//GEN-LAST:event_DimentionsComboBoxActionPerformed
 
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
+        if(NameR.getText().isEmpty()||ID_R.getText().isEmpty()||CellR.getText().isEmpty()||NameD.getText().isEmpty()||ID_D.getText().isEmpty()||CellD.getText().isEmpty()||Direction.getText().isEmpty()||Weight.getText().isEmpty()||NameT.getText().isEmpty()||ID_T.getText().isEmpty()||PlacaT.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null, "Llene todos los campos");
+         return;
+        }
         if (!ID_R.getText().matches("\\d{10}")) {
         JOptionPane.showMessageDialog(this, "La cédula del remitente debe tener 10 dígitos.");
         return;
         }
         if (!CellR.getText().matches("09\\d{8}")) {
-        JOptionPane.showMessageDialog(this, "La cédula del remitente debe tener 10 dígitos.");      
+        JOptionPane.showMessageDialog(this, "Los datos del celular del remitente son incorrectos."); 
+        return;
         }
         if (!ID_D.getText().matches("\\d{10}")) {
         JOptionPane.showMessageDialog(this, "La cédula del destinatario debe tener 10 dígitos.");
         return;
-        }// TODO add your handling code here:
+        }
+        if (!CellD.getText().matches("09\\d{8}")) {
+        JOptionPane.showMessageDialog(this, "Los datos del celular del destinatario son incorrectos."); 
+        return;
+        }
+        if(!ID_T.getText().matches("[A-Z]\\d{4}")) {
+        JOptionPane.showMessageDialog(this, "ID de transporte incorrecto, el formato es una letra mayuscula+4 numeros.");
+        return;
+        }
+        if (!PlacaT.getText().matches("[A-Z]{3}-\\d{3}")) {
+        JOptionPane.showMessageDialog(this, "Placa de transporte incorrecto, el formato es una 3 letras mayusculas+guion+3 numeros.");
+        return;
+        }
+        rp.RegistroEnvio(NameR, ID_R, CellR, NameD, ID_D, CellD, PlaceCombo, Direction, DimentionsComboBox, Weight, Tarifa, NameT, ID_T, PlacaT);
+        // TODO add your handling code here:
     }//GEN-LAST:event_RegisterActionPerformed
 
     /**
@@ -462,7 +482,7 @@ cp.valor(DimentionsComboBox, Weight, PlaceCombo, Tarifa);// TODO add your handli
     private javax.swing.JTextField NameD;
     private javax.swing.JTextField NameR;
     private javax.swing.JTextField NameT;
-    private javax.swing.JTextField Placa_T;
+    private javax.swing.JTextField PlacaT;
     private javax.swing.JComboBox<String> PlaceCombo;
     private javax.swing.JButton Register;
     private javax.swing.JTextField Tarifa;
